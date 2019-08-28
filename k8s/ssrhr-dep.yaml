@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssrhr-dep
+  labels:
+    app: ssrhr-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ssrhr-dep
+  template:
+    metadata:
+      labels:
+        app: ssrhr-dep
+    spec:
+      containers:
+        - image: gcr.io/$PROJECT/sinmetal/ssrhr-dep/master:latest
+          name: ssrhr-dep
