@@ -17,3 +17,6 @@ spec:
       containers:
         - image: gcr.io/$PROJECT/sinmetal/ssrhr-dep/master:latest
           name: ssrhr-dep
+          envFrom:
+            - configMapRef:
+                name: ssrhr-config

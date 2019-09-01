@@ -5,3 +5,4 @@ metadata:
 data:
   SSRHR_SPANNERDATABASE: projects/{project-id}/instances/{instance-id}/databases/{database}
   SSRHR_GOROUTINE: "30"
+  SSRHR_ROW_COUNT: "3"
