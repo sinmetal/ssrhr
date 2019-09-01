@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"sync"
 )
 
-func goGetSmallSize(sss SmallSizeStore, goroutine int, endCh chan<- error) {
+func goGetSmallSize(sss SmallSizeStore, goroutine int, rowNumber int, endCh chan<- error) {
 	go func() {
 		for {
 			var wg sync.WaitGroup
@@ -16,10 +17,10 @@ func goGetSmallSize(sss SmallSizeStore, goroutine int, endCh chan<- error) {
 					defer wg.Done()
 
 					ctx := context.Background()
-					ctx, span := startSpan(ctx, "/go/goGetTweet3Tables")
+					ctx, span := startSpan(ctx, "/go/goGetSmallSize")
 					defer span.End()
 
-					_, err := sss.Get(ctx, "small1")
+					_, err := sss.Get(ctx, fmt.Sprintf("small%v", rowNumber))
 					if err != nil {
 						endCh <- err
 					}

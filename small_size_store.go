@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"cloud.google.com/go/spanner"
@@ -41,7 +42,7 @@ func (s *defaultSmallSizeStore) TableName() string {
 }
 
 func (s *defaultSmallSizeStore) Get(ctx context.Context, id string) (*SmallSize, error) {
-	ctx, span := trace.StartSpan(ctx, "/smallsize/get")
+	ctx, span := trace.StartSpan(ctx, fmt.Sprintf("/smallsize/get/%s", id))
 	defer span.End()
 
 	row, err := s.sc.Single().ReadRow(ctx, s.TableName(), spanner.Key{id}, []string{"Id", "Content", "CreatedAt", "UpdatedAt", "CommitedAt"})

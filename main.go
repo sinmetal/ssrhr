@@ -15,6 +15,7 @@ import (
 type EnvConfig struct {
 	SpannerDatabase string `required:"true"`
 	Goroutine       int    `default:"3"`
+	RowCount        int    `default:"1"`
 }
 
 func main() {
@@ -50,7 +51,9 @@ func main() {
 	}
 	sss := NewSmallSizeStore(sc)
 
-	goGetSmallSize(sss, env.Goroutine, endCh)
+	for i := 1; i < env.RowCount; i++ {
+		goGetSmallSize(sss, env.Goroutine, i, endCh)
+	}
 
 	err = <-endCh
 	fmt.Printf("BOMB %+v", err)
