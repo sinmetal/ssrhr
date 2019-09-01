@@ -51,10 +51,11 @@ func main() {
 	}
 	sss := NewSmallSizeStore(sc)
 
-	for i := 1; i < env.RowCount; i++ {
+	for i := 1; i <= env.RowCount; i++ {
 		goGetSmallSize(sss, env.Goroutine, i, endCh)
 	}
 
+	fmt.Println("Start Wait EndCh...")
 	err = <-endCh
 	fmt.Printf("BOMB %+v", err)
 }
